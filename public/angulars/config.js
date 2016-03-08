@@ -1,0 +1,1 @@
+var light = angular.module('light', []);
