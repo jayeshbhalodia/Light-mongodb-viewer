@@ -1,0 +1,13 @@
+<nav class="navbar navbar-light bg-faded">
+    <a class="navbar-brand" href="#">Light</a>
+    <!-- <ul class="nav navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+    </ul> -->
+    <form class="form-inline pull-xs-right">
+        <select class="form-control" data-ng-model="d.selectedDB" data-ng-change="d.changeDB(d.selectedDB)" >
+            <option data-ng-repeat="drow in databases" value="{{drow.name}}">{{drow.name}}</option>
+        </select>
+    </form>
+</nav>

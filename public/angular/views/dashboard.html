@@ -1,0 +1,77 @@
+<section data-ng-controller="DashboardController" class="container-fluid light-cn">
+
+
+	<div class="loading-bx" ng-show="d.showSpinner">
+		<img src="/svg-loaders/audio.svg" alt="">
+	</div>
+
+	<div class="row" ng-hide="d.showSpinner">
+
+		<div class="col-xs-3 left-bx m-0 p-0">
+			<ul class="collection-list">
+				<li data-ng-repeat="collection in d.collections" ng-click="light.selectCollection(collection)" class="collection-list" ng-class="{ 'is-selected': collection.name == light.selectedCollection.name }">
+					{{collection.name}}
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-xs-9 right-bx">
+
+			<div class="records-container">
+
+				<div ng-show="!light.selectedCollection.records.length && !light.selectedCollection.showSpinner">
+					<h3 class="no-data">Cool, There're not any records!</h3>
+				</div>
+
+				<div ng-show="light.selectedCollection.records.length">
+
+					<div class="records-loading-bx" ng-show="light.selectedCollection.showSpinner">
+						<img src="/svg-loaders/audio.svg" alt="">
+					</div>
+
+					<div ng-repeat="record in light.selectedCollection.records" ng-hide="light.selectedCollection.showSpinner" class="record-box">
+						<!-- <p ng-bind-html="record" class="format-json">
+						</p> -->
+						<i class="fa fa-trash" aria-hidden="true" ng-click="light.removeRecord(record, $index)"></i>
+						<i class="fa fa-pencil-square-o" aria-hidden="true" ng-click="light.editObj.openModal(record, $index)"></i>
+
+
+						<json-formatter json="record" open="1"></json-formatter>
+
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="record-edit-modal">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Edit Record</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" ng-repeat="rec in light.editObj.record">
+						<label for="exampleInputEmail1">{{rec.key}}</label>
+						<input ng-if="rec.key == '_id'" readonly="readonly" type="text" ng-model="rec.model" class="form-control" placeholder="{{rec.key}}">
+
+						<textarea ng-if="rec.key != '_id' && rec.type=='textarea'" ng-model="rec.model" class="form-control" rows="6"></textarea>
+
+						<input ng-if="rec.key != '_id' && rec.type=='input'" type="text" ng-model="rec.model" class="form-control" placeholder="{{rec.key}}">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" ng-click="light.editObj.editAction()">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+</section>
