@@ -328,7 +328,7 @@ dbMfgModule.controller('DashboardController', ['$scope', 'Global', '$http', '$lo
 			$http.post('/api/collection/edit-record/' + record._id, {
 				dbName: $rootScope.d.selectedDB,
 				collectionName: $scope.light.selectedCollection.name,
-				fields:
+				fields: {}
 			}).success(function(res) {
 
 			});
