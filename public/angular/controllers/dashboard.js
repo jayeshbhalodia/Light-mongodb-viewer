@@ -199,35 +199,40 @@ dbMfgModule.controller('DashboardController', ['$scope', 'Global', '$http', '$lo
 				return;
 			}
 
-			$scope.light.selectedCollection = collection;
+			
 
-			localStorage.selectedCollection = JSON.stringify(collection);
+			$timeout(function() {
 
-			$scope.light.selectedCollection.showSpinner = true;
-
-			$http.post('/api/get-collection-records', {
-				dbName: $rootScope.d.selectedDB,
-				collectionName: collection.name
-			}).success(function(res) {
-
+				$scope.light.selectedCollection = collection;
 				$scope.light.selectedCollection.records = [];
+				localStorage.selectedCollection = JSON.stringify(collection);
 
-				if (res && res.length) {
-					for (var r in res) {
+				//
+				$scope.light.selectedCollection.showSpinner = true;
 
+				//
+				$http.post('/api/get-collection-records', {
+					dbName: $rootScope.d.selectedDB,
+					collectionName: collection.name
+				}).success(function(res) {
 
+					$scope.light.selectedCollection.records = [];
 
-						$scope.light.selectedCollection.records.push(res[r]);
+					if (res && res.length) {
+						for (var r in res) {
+							$scope.light.selectedCollection.records.push(res[r]);
+						}
 					}
-				}
 
-				$timeout(function() {
-					$scope.light.selectedCollection.showSpinner = false;
-				}, 500);
+					$timeout(function() {
+						$scope.light.selectedCollection.showSpinner = false;
+					}, 500);
 
-			}).error(function() {
+				}).error(function() {
 
-			})
+				});
+
+			}, 200);
 		}
 
 

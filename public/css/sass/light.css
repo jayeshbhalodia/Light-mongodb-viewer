@@ -177,14 +177,16 @@
   padding: 200px 0px;
   text-align: center; }
 
-.light-cn .left-bx ul.collection-list {
-  padding: 0px;
-  margin: 0px;
-  list-style: none; }
-  .light-cn .left-bx ul.collection-list li {
-    padding: 10px;
+.light-cn .left-bx {
+  max-width: 350px; }
+  .light-cn .left-bx ul.collection-list {
+    padding: 0px;
     margin: 0px;
-    border-bottom: 1px solid rgba(92, 184, 92, 0.2); }
+    list-style: none; }
+    .light-cn .left-bx ul.collection-list li {
+      padding: 10px;
+      margin: 0px;
+      border-bottom: 1px solid rgba(92, 184, 92, 0.2); }
 
 .light-cn .collection-list {
   cursor: pointer; }
