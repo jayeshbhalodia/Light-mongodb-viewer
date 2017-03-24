@@ -147,12 +147,97 @@ exports.editRecord = function(req, res) {
 
 	MongoClient.connect('mongodb://localhost:27017/' + req.body.dbName, function(err, db) {
 
+		//
+		console.log('req.body >>>>>' , req.body);
+
 		var collection = db.collection(req.body.collectionName);
 
-		collection.deleteOne({
+
+		var properData = {};
+
+
+		if(req.body.fields && req.body.fields.length) {
+			for(var f in req.body.fields) {
+				
+				if(req.body.fields[f].key != '_id') {
+
+					switch(req.body.fields[f].type) {
+						case 'input':
+							properData[req.body.fields[f].key] = req.body.fields[f].model;
+							break;
+						case 'textarea':
+
+							if(typeof req.body.fields[f].value == 'object') {
+								try {
+									properData[req.body.fields[f].key] = JSON.parse(req.body.fields[f].model);
+								} catch(x1) {
+
+								}
+							}
+
+							console.log('>>>>>', typeof req.body.fields[f].value);
+							// properData[req.body.fields[f].key] = req.body.fields[f].model;
+							break;
+					}
+				}
+			}
+		}
+
+		console.log('properData > ', properData);
+
+		collection.updateOne({
 			_id: new ObjectID(req.params.id)
+		}, {
+			$set: properData
 		}, function(err, docs) {
-			console.log(">>>>>>>", err, docs);
+			if(err) {
+				res.json({
+					status: false,
+					err: err
+				});
+			} else {
+				res.json({
+					status: true
+				});
+			}
+
+		});
+
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 
+ */
+exports.deleteAll = function(req, res) {
+
+	var MongoClient = require('mongodb').MongoClient;
+
+	var ObjectID = require('mongodb').ObjectID;
+
+	MongoClient.connect('mongodb://localhost:27017/' + req.body.dbName, function(err, db) {
+
+		var collection = db.collection(req.body.collectionName);
+
+		collection.deleteMany({
+			_id: {
+				$ne: '1'
+			}
+		}, function(err, docs) {
 			res.json(docs || []);
 		});
 

@@ -187,7 +187,7 @@ dbMfgModule.controller('DashboardController', ['$scope', 'Global', '$http', '$lo
 		}
 
 
-
+		//
 		$scope.light.selectedCollection.showSpinner = true;
 
 		/**
@@ -274,6 +274,10 @@ dbMfgModule.controller('DashboardController', ['$scope', 'Global', '$http', '$lo
 		$scope.light.editedRecord = {};
 		$scope.light.editObj.openModal = function(record, $index) {
 
+			//
+			$scope.light.editObj.rec = record;
+
+			//
 			$scope.light.editObj.index = $index;
 
 			$scope.light.editObj.record = [];
@@ -316,6 +320,9 @@ dbMfgModule.controller('DashboardController', ['$scope', 'Global', '$http', '$lo
 		$scope.light.editObj.editAction = function() {
 
 			//
+			$("#record-edit-modal").modal('hide');
+
+			//
 			var properFields = {};
 
 			//
@@ -325,14 +332,36 @@ dbMfgModule.controller('DashboardController', ['$scope', 'Global', '$http', '$lo
 				}
 			}
 
-			$http.post('/api/collection/edit-record/' + record._id, {
+			//
+			$http.post('/api/collection/edit-record/' + $scope.light.editObj.rec._id, {
 				dbName: $rootScope.d.selectedDB,
 				collectionName: $scope.light.selectedCollection.name,
-				fields: {}
+				fields: $scope.light.editObj.record
 			}).success(function(res) {
-
+				$scope.light.reloadData();
 			});
+		}
 
+
+		/**
+		 * 
+		 */
+		$scope.light.reloadData = function() {
+			$scope.light.selectCollection($scope.light.selectedCollection);
+		}
+
+
+
+		/**
+		 * 
+		 */
+		$scope.light.deleteAll = function() {
+			$http.post('/api/collection/delete-all', {
+				dbName: $rootScope.d.selectedDB,
+				collectionName: $scope.light.selectedCollection.name
+			}).success(function(res) {
+				$scope.light.selectCollection($scope.light.selectedCollection);
+			});
 		}
 
 

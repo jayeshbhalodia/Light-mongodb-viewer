@@ -9,7 +9,12 @@
 
 		<div class="col-xs-3 left-bx m-0 p-0">
 			<ul class="collection-list">
-				<li data-ng-repeat="collection in d.collections" ng-click="light.selectCollection(collection)" class="collection-list" ng-class="{ 'is-selected': collection.name == light.selectedCollection.name }">
+
+				<li >
+					<input type="text" name="collectionSearch" ng-model="collectionSearch" class="form-control" placeholder="Search">
+				</li>
+
+				<li data-ng-repeat="collection in d.collections| filter: { name : collectionSearch}" ng-click="light.selectCollection(collection)" class="collection-list" ng-class="{ 'is-selected': collection.name == light.selectedCollection.name }">
 					{{collection.name}}
 				</li>
 			</ul>
@@ -23,7 +28,21 @@
 					<h3 class="no-data">Cool, There're not any records!</h3>
 				</div>
 
+				
+
 				<div ng-show="light.selectedCollection.records.length">
+
+					<div class="m-b-20" ng-show="light.selectedCollection.records.length">
+
+						<button class="btn btn-outline-info" ng-click="light.reloadData()">
+							<i class="fa fa-refresh" aria-hidden="true"></i> Reload
+						</button>
+
+						<button class="btn btn-outline-danger pull-right" ng-click="light.deleteAll()">
+							<i class="fa fa-trash-o" aria-hidden="true"></i> Delete All
+						</button>
+
+					</div>
 
 					<div class="records-loading-bx" ng-show="light.selectedCollection.showSpinner">
 						<img src="/svg-loaders/audio.svg" alt="">

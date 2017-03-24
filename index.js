@@ -36,7 +36,7 @@ app.locals.ENV = env;
 // --
 // ExpressJS Configuration
 
-app.set('port', process.env.PORT || 3008);
+app.set('port', process.env.PORT || 2008);
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);

@@ -25,6 +25,7 @@ router.post('/api/get-collections', ctrl.home.getCollections);
 router.post('/api/get-collection-records', ctrl.home.getCollectionRecords);
 router.post('/api/collection/remove-record/:id', ctrl.home.removeRecord);
 router.post('/api/collection/edit-record/:id', ctrl.home.editRecord);
+router.post('/api/collection/delete-all', ctrl.home.deleteAll);
 
 // router.post('/api/common/get-data', ctrl.common.getData);
 // router.post('/api/common/single-data', ctrl.common.getSingle);    

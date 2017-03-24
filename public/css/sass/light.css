@@ -164,8 +164,14 @@
 .m-0 {
   margin: 0px; }
 
+.m-b-20 {
+  margin-bottom: 20px; }
+
 .p-0 {
   padding: 0px; }
+
+.text-right {
+  text-align: right; }
 
 .light-cn .loading-bx {
   padding: 200px 0px;
