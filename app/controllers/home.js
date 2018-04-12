@@ -86,7 +86,7 @@ exports.getCollectionRecords = function(req, res) {
 
 		var collection = db.collection(req.body.collectionName);
 
-		collection.find({}).limit(10).toArray(function(err, docs) {
+		collection.find({}).limit(100).toArray(function(err, docs) {
 			res.json(docs || []);
 		});
 

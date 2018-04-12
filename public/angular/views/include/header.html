@@ -7,7 +7,7 @@
     </ul> -->
     <form class="form-inline pull-xs-right">
         <select class="form-control" data-ng-model="d.selectedDB" data-ng-change="d.changeDB(d.selectedDB)" >
-            <option data-ng-repeat="drow in databases" value="{{drow.name}}">{{drow.name}}</option>
+            <option data-ng-repeat="drow in databases | orderBy : 'name'" value="{{drow.name}}">{{drow.name}}</option>
         </select>
     </form>
 </nav>
