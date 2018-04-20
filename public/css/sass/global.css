@@ -12,6 +12,19 @@
 .ic-dbsMfg-body .text-red {
   color: red; }
 
+.delete-btn {
+  color: red;
+  z-index: 1; }
+
+.ace_editor {
+  height: 600px; }
+
+.text-red {
+  color: red; }
+
+.m-t-10 {
+  margin-top: 10px; }
+
 /*!
  * Bootstrap v4.0.0-alpha.4 (http://getbootstrap.com)
  * Copyright 2011-2016 The Bootstrap Authors

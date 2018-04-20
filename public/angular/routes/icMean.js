@@ -200,10 +200,10 @@ var checkLoggedOut = function($q, $timeout, $http, $location, $rootScope) {
     checkUserIsLoggedOrNot($q, $timeout, $http, $location, $rootScope, false);
 };
 
-var dbMfgModule = angular.module('Mfg', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'toastr', 'ngAnimate', 'jsonFormatter']);
+var lightMongo = angular.module('Mfg', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'toastr', 'ngAnimate', 'jsonFormatter', 'ui.ace']);
 
 
-dbMfgModule.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+lightMongo.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
 
     function($stateProvider, $urlRouterProvider, $locationProvider) {
 

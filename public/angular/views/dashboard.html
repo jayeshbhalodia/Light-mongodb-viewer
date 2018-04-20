@@ -25,7 +25,7 @@
 			<div class="records-container">
 
 				<div ng-show="!light.selectedCollection.records.length && !light.selectedCollection.showSpinner">
-					<h3 class="no-data">Cool, There're not any records!</h3>
+					<h3 class="no-data">cool cool, No records!</h3>
 				</div>
 
 				
@@ -38,7 +38,7 @@
 							<i class="fa fa-refresh" aria-hidden="true"></i> Reload
 						</button>
 
-						<button class="btn btn-outline-danger pull-right" ng-click="light.deleteAll()">
+						<button class="btn btn-outline-danger pull-right" ng-click="light.deleteAllConfirmation()">
 							<i class="fa fa-trash-o" aria-hidden="true"></i> Delete All
 						</button>
 
@@ -50,6 +50,8 @@
 
 					<div ng-hide="light.selectedCollection.showSpinner">
 						<div ng-repeat="record in light.selectedCollection.records"  class="record-box">
+							<i class="fa fa-trash delete-btn" title="Tap one more time to delete this" aria-hidden="true" ng-if="record.isConfirmed" ng-click="light.removeRecord(record, $index)"></i>
+							<i class="fa fa-trash" aria-hidden="true" ng-if="!record.isConfirmed" ng-click="light.removeRecord(record, $index)"></i>
 							<i class="fa fa-trash" aria-hidden="true" ng-click="light.removeRecord(record, $index)"></i>
 							<i class="fa fa-pencil-square-o" aria-hidden="true" ng-click="light.editObj.openModal(record, $index)"></i>
 							<json-formatter json="record" open="1"></json-formatter>
@@ -62,24 +64,45 @@
 		</div>
 	</div>
 	
-
+	<div class="modal fade" tabindex="-1" role="dialog" id="delete-all-confirmation">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Delete All Confirmation</h4>
+				</div>
+				<div class="modal-body">
+					<h5>Are you sure, You wanna delete all records?</h5>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-danger" ng-click="light.deleteAll()">Yes, Delete all records</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 	<div class="modal fade" tabindex="-1" role="dialog" id="record-edit-modal">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">Edit Record</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-group" ng-repeat="rec in light.editObj.record">
+					
+					<div ui-ace="light.editObj.aceOptions" ng-model="light.editObj.recStr"></div>
+					
+					<h5 ng-if="!light.editObj.isJSONValid" class="text-red m-t-10">JSON format is invalid!</h5>
+					
+					<!-- <div class="form-group" ng-repeat="rec in light.editObj.record">
 						<label for="exampleInputEmail1">{{rec.key}}</label>
 						<input ng-if="rec.key == '_id'" readonly="readonly" type="text" ng-model="rec.model" class="form-control" placeholder="{{rec.key}}">
 
 						<textarea ng-if="rec.key != '_id' && rec.type=='textarea'" ng-model="rec.model" class="form-control" rows="6"></textarea>
 
 						<input ng-if="rec.key != '_id' && rec.type=='input'" type="text" ng-model="rec.model" class="form-control" placeholder="{{rec.key}}">
-					</div>
+					</div> -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

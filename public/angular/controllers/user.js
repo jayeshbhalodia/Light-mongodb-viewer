@@ -1,6 +1,6 @@
  'use strict';
 
-dbMfgModule.controller('UserController', ['$scope', 'Global', '$http', '$location', '$uibModal', '$stateParams', '$rootScope', 'alertService', '$timeout',
+lightMongo.controller('UserController', ['$scope', 'Global', '$http', '$location', '$uibModal', '$stateParams', '$rootScope', 'alertService', '$timeout',
      function($scope, Global, $http, $location, $uibModal, $stateParams, $rootScope, alertService, $timeout) {
          $scope.global = Global;
 

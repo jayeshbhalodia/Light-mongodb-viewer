@@ -153,42 +153,43 @@ exports.editRecord = function(req, res) {
 		var collection = db.collection(req.body.collectionName);
 
 
-		var properData = {};
+		// var properData = {};
+		// 
+		// 
+		// if(req.body.fields && req.body.fields.length) {
+		// 	for(var f in req.body.fields) {
+		// 
+		// 		if(req.body.fields[f].key != '_id') {
+		// 
+		// 			switch(req.body.fields[f].type) {
+		// 				case 'input':
+		// 					properData[req.body.fields[f].key] = req.body.fields[f].model;
+		// 					break;
+		// 				case 'textarea':
+		// 
+		// 					if(typeof req.body.fields[f].value == 'object') {
+		// 						try {
+		// 							properData[req.body.fields[f].key] = JSON.parse(req.body.fields[f].model);
+		// 						} catch(x1) {
+		// 
+		// 						}
+		// 					}
+		// 
+		// 					console.log('>>>>>', typeof req.body.fields[f].value);
+		// 					// properData[req.body.fields[f].key] = req.body.fields[f].model;
+		// 					break;
+		// 			}
+		// 		}
+		// 	}
+		// }
 
-
-		if(req.body.fields && req.body.fields.length) {
-			for(var f in req.body.fields) {
-				
-				if(req.body.fields[f].key != '_id') {
-
-					switch(req.body.fields[f].type) {
-						case 'input':
-							properData[req.body.fields[f].key] = req.body.fields[f].model;
-							break;
-						case 'textarea':
-
-							if(typeof req.body.fields[f].value == 'object') {
-								try {
-									properData[req.body.fields[f].key] = JSON.parse(req.body.fields[f].model);
-								} catch(x1) {
-
-								}
-							}
-
-							console.log('>>>>>', typeof req.body.fields[f].value);
-							// properData[req.body.fields[f].key] = req.body.fields[f].model;
-							break;
-					}
-				}
-			}
-		}
-
-		console.log('properData > ', properData);
+		console.log('properData > ', req.body.fields);
+		delete req.body.fields._id;
 
 		collection.updateOne({
 			_id: new ObjectID(req.params.id)
 		}, {
-			$set: properData
+			$set: req.body.fields
 		}, function(err, docs) {
 			if(err) {
 				res.json({
@@ -243,5 +244,3 @@ exports.deleteAll = function(req, res) {
 
 	});
 }
-
-

@@ -1,6 +1,6 @@
 'use strict';
 
-dbMfgModule.factory('IcMean', [
+lightMongo.factory('IcMean', [
   function() {
     return {
       name: 'ic-mean'
@@ -9,7 +9,7 @@ dbMfgModule.factory('IcMean', [
 ]);
 
 
-dbMfgModule.factory('icdb', ['$http', function($http) {
+lightMongo.factory('icdb', ['$http', function($http) {
     var dataFactory = {};
 
     dataFactory.insert = function(model, data, callback) {
@@ -106,7 +106,7 @@ dbMfgModule.factory('icdb', ['$http', function($http) {
 
 
 
-dbMfgModule.factory('alertService',['toastr', function(toastr) {
+lightMongo.factory('alertService',['toastr', function(toastr) {
 
     var alertService = {}
     var generateMsg = function(msgType, msg) {
@@ -130,7 +130,7 @@ dbMfgModule.factory('alertService',['toastr', function(toastr) {
 }]);
 
 //Global service for global variables
-dbMfgModule.factory('Global', [function() {
+lightMongo.factory('Global', [function() {
 
     var _this = this;
     _this._data = {
@@ -146,4 +146,3 @@ dbMfgModule.factory('Global', [function() {
 
     return _this._data;
 }]);
-
